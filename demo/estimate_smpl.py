@@ -242,6 +242,7 @@ def single_person_with_mmdet(args, frames_iter):
             np.array(frames_iter)[frame_id_list], output_folder=frames_folder)
 
         for i, img_i in enumerate(sorted(os.listdir(frames_folder))):
+       
             body_pose_.append(smpl_poses[i][1:])
             global_orient_.append(smpl_poses[i][:1])
             smpl_betas_.append(smpl_betas[i])
@@ -285,6 +286,7 @@ def single_person_with_mmdet(args, frames_iter):
             render_choice=args.render_choice,
             resolution=frames_iter[0].shape[:2],
             origin_frames=frames_folder,
+            mesh_file_path = args.mesh_output,
             body_model_config=body_model_config,
             overwrite=True,
             palette=args.palette,
@@ -539,6 +541,11 @@ if __name__ == '__main__':
         type=str,
         default=None,
         help='directory to save output result file')
+    parser.add_argument(
+        '--mesh_output',
+        type=str,
+        default=None,
+        help='directory to save mesh output result file')
     parser.add_argument(
         '--show_path',
         type=str,
